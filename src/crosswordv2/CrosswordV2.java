@@ -20,7 +20,7 @@ public class CrosswordV2 {
     //Retrieves all the nth letters of every word of the dictionary
     public static TreeSet<Character> retrieveKeys(ArrayList<String> dictionary , int pos){
         TreeSet<Character> keys = new TreeSet<>();
-        Iterator it = dictionary.iterator();   
+        Iterator<String> it = dictionary.iterator();   
         while (it.hasNext()){
             char x = it.next().toString().charAt(pos);
             keys.add(x);
@@ -31,7 +31,7 @@ public class CrosswordV2 {
     //Checks for arc consistency 
     public static TreeSet<String> AC3(ArrayList<String> dictionary, TreeSet<Character> keys, int pos){
         TreeSet<String> result = new TreeSet<>();
-        Iterator keyIT = keys.iterator();        
+        Iterator<Character> keyIT = keys.iterator();        
 
         while(keyIT.hasNext()){
             char key = (Character) keyIT.next();
@@ -46,10 +46,10 @@ public class CrosswordV2 {
     }
 
     //Cycles through each pair of variables and checks each arc contingency
-    public static HashMap<String, ArrayList> cycle(HashMap<String, ArrayList> compiled){
+    public static HashMap<String, ArrayList<String>> cycle(HashMap<String, ArrayList<String>> compiled){
         System.out.println("Cycle start:");
             for(String key : compiled.keySet()){
-            ArrayList<String> final_result = new ArrayList();
+            ArrayList<String> final_result = new ArrayList<>();
             if(key.startsWith("A")){
                 for(int i = 1; i <= 3; i++) {
                     String Y = "";
@@ -69,7 +69,7 @@ public class CrosswordV2 {
                             System.out.println("x: "+ i);
                             System.out.println("y: "+ pos);
                             TreeSet<String> result_tree = AC3(compiled.get(V2),V1_keys,pos);
-                            final_result = new ArrayList (result_tree);
+                            final_result = new ArrayList<> (result_tree);
                             compiled.replace(V2, final_result);;
                             System.out.println("Reduced domain:" + final_result);
                             System.out.println("Reduced domain size: " + final_result.size()+ "\n");
@@ -102,7 +102,7 @@ public class CrosswordV2 {
         ArrayList<String> D2 = A1;
         ArrayList<String> D3 = A1;
 
-        HashMap<String, ArrayList> compiled = new HashMap<>();
+        HashMap<String, ArrayList<String>> compiled = new HashMap<>();
         compiled.put("A1", A1);          
         compiled.put("A2", A2); 
         compiled.put("A3", A3);        
